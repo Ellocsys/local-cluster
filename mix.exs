@@ -1,7 +1,7 @@
 defmodule LocalCluster.MixProject do
   use Mix.Project
 
-  @version "2.1.0"
+  @version "2.2.0"
   @url_docs "http://hexdocs.pm/local_cluster"
   @url_github "https://github.com/whitfin/local-cluster"
 
@@ -24,7 +24,7 @@ defmodule LocalCluster.MixProject do
         maintainers: ["Isaac Whitfield"]
       },
       version: @version,
-      elixir: "~> 1.7",
+      elixir: "~> 1.9",
       deps: deps(),
       docs: [
         main: "LocalCluster",
