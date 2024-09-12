@@ -71,6 +71,8 @@ defmodule LocalCluster do
     case :net_kernel.start([:"manager@127.0.0.1"]) do
       # handle nodes that have already been started elsewhere
       {:error, {:already_started, _}} -> start_boot_server.()
+      # handle nodes that have already been started elsewhere
+      {:error, {{:already_started, _}, _}} -> start_boot_server.()
       # handle the node being started
       {:ok, _} -> start_boot_server.()
       # coveralls-ignore-next-line
