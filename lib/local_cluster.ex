@@ -315,7 +315,7 @@ defmodule LocalCluster do
       |> Enum.map(fn {app_name, _, _} ->
         {app_name, Application.get_all_env(app_name)}
       end)
-      |> Keyword.merge(Keyword.get(options, :environment, []))
+      |> deep_merge(Keyword.get(options, :environment, []))
 
     rpc.(:application, :set_env, [merged_config])
 
@@ -336,6 +336,16 @@ defmodule LocalCluster do
     new_index = length(current ++ members)
 
     {:ok, state(state, index: new_index, members: new_members)}
+  end
+
+  defp deep_merge(list1, list2) when is_list(list1) and is_list(list2) do
+    Keyword.merge(list1, list2, fn _k, v1, v2 ->
+      deep_merge(v1, v2)
+    end)
+  end
+
+  defp deep_merge(_value1, value2) do
+    value2
   end
 
   # Handling of Erlang OTP changes prior to `:peer` being introduced
